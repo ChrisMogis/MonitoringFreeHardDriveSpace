@@ -15,7 +15,7 @@
     CreateLogsFolder
 
 #Declaration of script variables
-$Client = "C-QUADRAT"
+$Client = "Client Name"
 $ListDisk = Get-CimInstance -Class Win32_LogicalDisk
 $Server = (Get-CimInstance -ClassName Win32_ComputerSystem).Name
 $SetMinSizeLimit = 600GB;
@@ -34,11 +34,11 @@ If ($disk.FreeSpace -lt $SetMinSizeLimit)
  {
     Write-Output "$($Date) Sending Alert email..." | Tee-Object -FilePath $LogPath -Append
     
-    $smtpServer = "cquadrat-fr0c.mail.protection.outlook.com"
+    $smtpServer = "SMTP_Server"
     $msg = new-object Net.Mail.MailMessage
     $smtp = new-object Net.Mail.SmtpClient($smtpServer)  
-    $msg.From = "noreply@c-quadrat.fr"
-    $msg.To.Add("cmogis@janus-consulting.fr")
+    $msg.From = "noreply@domainname.extension"
+    $msg.To.Add("username@domainname.extension")
     #$msg.CC.Add("username@domainname.extension")
     $msg.Attachments.Add("$LogPath")
     $msg.subject = "$($Client)  :  Server disk space problem on $($Server)"
