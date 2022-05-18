@@ -16,7 +16,7 @@
 
 #Declaration of script variables
 $Client = "Client Name"
-$ListDisk = Get-CimInstance -Class Win32_LogicalDisk
+$ListDisk = Get-CimInstance -Class Win32_LogicalDisk | where {$_.DriveType -eq "3"}
 $Server = (Get-CimInstance -ClassName Win32_ComputerSystem).Name
 $SetMinSizeLimit = 600GB;
 $LogPath = "C:\Logs\CheckHardDriveFreeSpace.log"
