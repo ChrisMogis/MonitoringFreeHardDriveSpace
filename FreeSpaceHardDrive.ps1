@@ -44,8 +44,6 @@ If ($disk.FreeSpace -lt $SetMinSizeLimit)
     $msg.subject = "$($Client)  :  Server disk space problem on $($Server)"
     $msg.body = "$($date) : The remaining disk space on disk $($Disk.DeviceID) of the server $($Server) is $($DiskFreeSpace) Go"
     $smtp.send($msg)
-    
-    Write-Host "$($Date) Sending Alert email OK" | Tee-Object -FilePath $LogPath -Append
     }
 
 #If the free space disk is OK
