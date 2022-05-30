@@ -1,5 +1,5 @@
 # MonitoringFreeHardDriveSpace
-This script monitors available disk space on a server. When it reaches the set limit, an alert email is sent.
+This script monitor available disk space on a server. When it reaches the set limit, an alert email is sent.
 
 Example of the alert email sent
 
