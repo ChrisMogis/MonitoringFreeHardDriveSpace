@@ -7,7 +7,7 @@
 		}
 		else 
 		{ 
-    Write-Host "Le dossier "C:\Logs\" existe déjà !"
+    Write-Host "The folder "C:\Logs\" already exists !"
     }
 }
 
@@ -18,7 +18,7 @@
 $Client = "Client Name"
 $ListDisk = Get-CimInstance -Class Win32_LogicalDisk | where {$_.DriveType -eq "3"}
 $Server = (Get-CimInstance -ClassName Win32_ComputerSystem).Name
-$SetMinSizeLimit = 600GB;
+$SetMinSizeLimit = 50GB;
 $LogPath = "C:\Logs\CheckHardDriveFreeSpace.log"
 $Date = Get-Date
 
@@ -31,7 +31,7 @@ Foreach($Disk in $ListDisk)
 
 #Send email if 
 If ($disk.FreeSpace -lt $SetMinSizeLimit)
- {
+    {
     Write-Output "$($Date) Sending Alert email..." | Tee-Object -FilePath $LogPath -Append
     
     $smtpServer = "SMTP_Server"
@@ -46,8 +46,11 @@ If ($disk.FreeSpace -lt $SetMinSizeLimit)
     $smtp.send($msg)
     
     Write-Host "$($Date) Sending Alert email OK" | Tee-Object -FilePath $LogPath -Append
-}
-If ($disk.FreeSpace -gt $SetMinSizeLimit)
+    }
+
+#If the free space disk is OK
+else 
+
     {
-    Write-Host "Free disk Space OK"
+        Write-Host "Free disk Space OK" | Tee-Object -FilePath $LogPath -Append
     }
